@@ -1,37 +1,88 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Parkinson's Disease Prediction</h2>
-<form action="/parkinsons" method="POST">
-    <div class="row g-3">
-        <div class="col-md-3"><label>MDVP:Fo(Hz)</label><input type="number" step="any" name="fo" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:Fhi(Hz)</label><input type="number" step="any" name="fhi" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:Flo(Hz)</label><input type="number" step="any" name="flo" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:Jitter(%)</label><input type="number" step="any" name="jitter_percent" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:Jitter(Abs)</label><input type="number" step="any" name="jitter_abs" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:RAP</label><input type="number" step="any" name="rap" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:PPQ</label><input type="number" step="any" name="ppq" class="form-control" required></div>
-        <div class="col-md-3"><label>Jitter:DDP</label><input type="number" step="any" name="ddp" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:Shimmer</label><input type="number" step="any" name="shimmer" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:Shimmer(dB)</label><input type="number" step="any" name="shimmer_db" class="form-control" required></div>
-        <div class="col-md-3"><label>Shimmer:APQ3</label><input type="number" step="any" name="apq3" class="form-control" required></div>
-        <div class="col-md-3"><label>Shimmer:APQ5</label><input type="number" step="any" name="apq5" class="form-control" required></div>
-        <div class="col-md-3"><label>MDVP:APQ</label><input type="number" step="any" name="apq" class="form-control" required></div>
-        <div class="col-md-3"><label>Shimmer:DDA</label><input type="number" step="any" name="dda" class="form-control" required></div>
-        <div class="col-md-3"><label>NHR</label><input type="number" step="any" name="nhr" class="form-control" required></div>
-        <div class="col-md-3"><label>HNR</label><input type="number" step="any" name="hnr" class="form-control" required></div>
-        <div class="col-md-3"><label>RPDE</label><input type="number" step="any" name="rpde" class="form-control" required></div>
-        <div class="col-md-3"><label>DFA</label><input type="number" step="any" name="dfa" class="form-control" required></div>
-        <div class="col-md-3"><label>spread1</label><input type="number" step="any" name="spread1" class="form-control" required></div>
-        <div class="col-md-3"><label>spread2</label><input type="number" step="any" name="spread2" class="form-control" required></div>
-        <div class="col-md-3"><label>D2</label><input type="number" step="any" name="d2" class="form-control" required></div>
-        <div class="col-md-3"><label>PPE</label><input type="number" step="any" name="ppe" class="form-control" required></div>
-    </div>
-    <button type="submit" class="btn btn-success mt-3">Predict</button>
-</form>
 
-{% if result %}
-<div class="result-box">
-    <h4>{{ result }}</h4>
+<div class="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Parkinson's Disease Prediction</h2>
+    
+    <form action="{{ url_for('prediction_controller.parkinsons') }}" method="POST">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Fo(Hz)</label>
+            <input type="number" step="any" name="fo" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Fhi(Hz)</label>
+            <input type="number" step="any" name="fhi" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Flo(Hz)</label>
+            <input type="number" step="any" name="flo" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Jitter(%)</label>
+            <input type="number" step="any" name="jitter_percent" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Jitter(Abs)</label>
+            <input type="number" step="any" name="jitter_abs" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:RAP</label>
+            <input type="number" step="any" name="rap" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:PPQ</label>
+            <input type="number" step="any" name="ppq" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">Jitter:DDP</label>
+            <input type="number" step="any" name="ddp" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Shimmer</label>
+            <input type="number" step="any" name="shimmer" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:Shimmer(dB)</label>
+            <input type="number" step="any" name="shimmer_db" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">Shimmer:APQ3</label>
+            <input type="number" step="any" name="apq3" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">Shimmer:APQ5</label>
+            <input type="number" step="any" name="apq5" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">MDVP:APQ</label>
+            <input type="number" step="any" name="apq" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">Shimmer:DDA</label>
+            <input type="number" step="any" name="dda" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">NHR</label>
+            <input type="number" step="any" name="nhr" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">HNR</label>
+            <input type="number" step="any" name="hnr" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">RPDE</label>
+            <input type="number" step="any" name="rpde" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">DFA</label>
+            <input type="number" step="any" name="dfa" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">spread1</label>
+            <input type="number" step="any" name="spread1" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">spread2</label>
+            <input type="number" step="any" name="spread2" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">D2</label>
+            <input type="number" step="any" name="d2" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+
+            <div><label class="text-xs font-bold text-gray-600">PPE</label>
+            <input type="number" step="any" name="ppe" class="mt-1 block w-full border border-gray-300 rounded py-1 px-2 text-sm focus:ring-green-500 focus:border-green-500" required></div>
+        </div>
+
+        <button type="submit" class="mt-8 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded transition duration-200">
+            Predict Parkinson's
+        </button>
+    </form>
+
+    {% if result %}
+    <div class="mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+        <h4 class="font-bold text-lg">Result: {{ result }}</h4>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
 {% endblock %}

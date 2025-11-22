@@ -1,2 +1,5 @@
 myenv/
 catboost_info/
+node_modeules/
+__pycache__/
+db_directory/
