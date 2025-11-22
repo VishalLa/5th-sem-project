@@ -1,65 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Disease Prediction App</title>
+    <title>Login - Health Assistant</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff', // Very light blue
+                            100: '#dbeafe', // Light blue (used for text on dark overlay)
+                            500: '#3b82f6', // Blue-500 (Focus rings)
+                            600: '#2563eb', // Blue-600 (Buttons)
+                            700: '#1d4ed8', // Blue-700 (Button Hover)
+                            800: '#1e40af', // Dark Blue
+                            900: '#1e3a8a', // Very Dark Blue (Overlay base - creates better contrast)
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="min-h-screen bg-base-100 font-sans">
 
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div class="flex min-h-screen w-full">
         
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Welcome Back</h2>
-
-        {% if error %}
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
-                {{ error }}
+        <div class="hidden lg:flex w-1/2 bg-cover bg-center relative" 
+             style="background-image: url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=1920');">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-900/95 to-brand-800/60 mix-blend-multiply"></div>
+            
+            <div class="relative z-10 flex flex-col justify-between p-12 text-white w-full">
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-100" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    <span class="font-heading font-bold text-2xl tracking-wide">HealthAssist</span>
+                </div>
+                <div>
+                    <h1 class="font-heading text-5xl font-bold mb-6 leading-tight">Your Personal<br>Health Companion</h1>
+                    <p class="text-brand-100 text-lg max-w-md">AI-driven predictions for Parkinson's, Heart Disease, and Diabetes. Monitor your vitals with precision.</p>
+                </div>
+                <div class="text-sm text-brand-100 opacity-70">© 2025 Health Assistant App</div>
             </div>
-        {% endif %}
+        </div>
 
-        <form method="POST">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                    Email Address
-                </label>
-                <input 
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200" 
-                    type="email" 
-                    name="email" 
-                    id="email"
-                    placeholder="you@example.com" 
-                    required
-                >
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
+            <div class="w-full max-w-md space-y-8">
+                
+                <div class="text-center lg:text-left">
+                    <h2 class="font-heading text-3xl font-bold text-gray-900">Welcome Back</h2>
+                    <p class="mt-2 text-gray-600">Please enter your details to access your dashboard.</p>
+                </div>
+
+                {% if error %}
+                <div role="alert" class="alert alert-error rounded-lg shadow-sm border border-red-200 bg-red-50 text-red-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span class="font-medium">{{ error }}</span>
+                </div>
+                {% endif %}
+
+                <form method="POST" class="mt-8 space-y-6">
+                    
+                    <div class="form-control w-full">
+                        <label class="label" for="email">
+                            <span class="label-text font-medium text-gray-700">Email Address</span>
+                        </label>
+                        <label class="input input-bordered flex items-center gap-2 focus-within:outline-none focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-500 bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" /><path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" /></svg>
+                            <input type="email" name="email" id="email" class="grow" placeholder="doctor@hospital.com" required />
+                        </label>
+                    </div>
+
+                    <div class="form-control w-full">
+                        <label class="label justify-between" for="password">
+                            <span class="label-text font-medium text-gray-700">Password</span>
+                            </label>
+                        <label class="input input-bordered flex items-center gap-2 focus-within:outline-none focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-500 bg-gray-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z" clip-rule="evenodd" /></svg>
+                            <input type="password" name="password" id="password" class="grow" placeholder="••••••••" required />
+                        </label>
+                    </div>
+
+                    <div class="form-control mt-6">
+                        <button type="submit" class="btn border-none bg-brand-600 hover:bg-brand-700 text-white w-full text-lg shadow-md hover:shadow-lg transition-all duration-200 normal-case font-heading tracking-wide">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+
+                <div class="relative mt-10">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">New to Health Assistant?</span>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('login_controller.signup') }}" class="btn btn-outline w-full border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 hover:text-gray-900 normal-case">
+                        Create an account
+                    </a>
+                </div>
             </div>
-
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                    Password
-                </label>
-                <input 
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200" 
-                    type="password" 
-                    name="password" 
-                    id="password"
-                    placeholder="******************" 
-                    required
-                >
-            </div>
-
-            <div class="flex items-center justify-between">
-                <button 
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200" 
-                    type="submit">
-                    Login
-                </button>
-            </div>
-        </form>
-
-        <p class="text-center text-gray-600 text-sm mt-6">
-            Don't have an account? 
-            <a href="{{ url_for('login_controller.signup') }}" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">Sign up</a>
-        </p>
+        </div>
     </div>
 
 </body>

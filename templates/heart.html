@@ -1,60 +1,135 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Heart Disease Prediction</h2>
-    
-    <form action="{{ url_for('prediction_controller.heart') }}" method="POST">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Age</label>
-            <input type="number" step="any" name="age" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+<div class="min-h-screen bg-base-200 py-10 px-4">
+    <div class="card w-full max-w-5xl mx-auto bg-base-100 shadow-xl">
+        <div class="card-body">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-base-300 pb-6 mb-6">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-red-50 rounded-full text-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" /></svg>
+                    </div>
+                    <div>
+                        <h2 class="card-title text-3xl font-bold text-base-content">Heart Disease Check</h2>
+                        <p class="text-base-content/70 text-sm">Enter patient vitals and clinical parameters.</p>
+                    </div>
+                </div>
+                <div class="badge badge-error badge-outline p-3 mt-4 md:mt-0 font-semibold">Cardiac Model v1.0</div>
+            </div>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Sex (1=M, 0=F)</label>
-            <input type="number" step="any" name="sex" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+            <form action="{{ url_for('prediction_controller.heart') }}" method="POST">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div class="bg-base-50 p-5 rounded-xl border border-base-200">
+                        <h3 class="font-bold text-gray-500 uppercase text-xs tracking-wider mb-4">Patient Profile</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Age</span></label>
+                                <input type="number" step="any" name="age" placeholder="Years" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Sex</span></label>
+                                <div class="tooltip" data-tip="1 = Male, 0 = Female">
+                                    <input type="number" step="any" name="sex" placeholder="1/0" class="input input-bordered w-full focus:input-error" required />
+                                </div>
+                                <label class="label"><span class="label-text-alt text-xs opacity-60">1=Male, 0=Female</span></label>
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Chest Pain</span></label>
+                                <input type="number" step="any" name="cp" placeholder="Type 0-3" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                        </div>
+                    </div>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Chest Pain Type</label>
-            <input type="number" step="any" name="cp" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+                    <div class="bg-base-50 p-5 rounded-xl border border-base-200">
+                        <h3 class="font-bold text-gray-500 uppercase text-xs tracking-wider mb-4">Key Vitals</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Resting BP</span></label>
+                                <input type="number" step="any" name="trestbps" placeholder="mm Hg" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Cholesterol</span></label>
+                                <input type="number" step="any" name="chol" placeholder="mg/dl" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Fasting BS</span></label>
+                                <div class="tooltip" data-tip="1 if > 120 mg/dl, 0 otherwise">
+                                    <input type="number" step="any" name="fbs" placeholder="1/0" class="input input-bordered w-full focus:input-error" required />
+                                </div>
+                                <label class="label"><span class="label-text-alt text-xs opacity-60">> 120 mg/dl?</span></label>
+                            </div>
+                        </div>
+                    </div>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Resting BP</label>
-            <input type="number" step="any" name="trestbps" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+                    <div class="bg-base-50 p-5 rounded-xl border border-base-200">
+                        <h3 class="font-bold text-gray-500 uppercase text-xs tracking-wider mb-4">Heart Performance</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Resting ECG</span></label>
+                                <input type="number" step="any" name="restecg" placeholder="Res (0-2)" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Max HR</span></label>
+                                <input type="number" step="any" name="thalach" placeholder="BPM" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Ex. Angina</span></label>
+                                <div class="tooltip" data-tip="1 = Yes, 0 = No">
+                                    <input type="number" step="any" name="exang" placeholder="1/0" class="input input-bordered w-full focus:input-error" required />
+                                </div>
+                                <label class="label"><span class="label-text-alt text-xs opacity-60">Ind. by exercise?</span></label>
+                            </div>
+                        </div>
+                    </div>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Cholesterol</label>
-            <input type="number" step="any" name="chol" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+                    <div class="bg-base-50 p-5 rounded-xl border border-base-200">
+                        <h3 class="font-bold text-gray-500 uppercase text-xs tracking-wider mb-4">Advanced Metrics</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Oldpeak</span></label>
+                                <input type="number" step="any" name="oldpeak" placeholder="ST Depr." class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Slope</span></label>
+                                <input type="number" step="any" name="slope" placeholder="0-2" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Vessels</span></label>
+                                <input type="number" step="any" name="ca" placeholder="0-3" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                            <div class="form-control">
+                                <label class="label"><span class="label-text font-medium">Thal</span></label>
+                                <input type="number" step="any" name="thal" placeholder="1-3" class="input input-bordered w-full focus:input-error" required />
+                            </div>
+                        </div>
+                    </div>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Fasting BS > 120</label>
-            <input type="number" step="any" name="fbs" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+                </div>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Resting ECG</label>
-            <input type="number" step="any" name="restecg" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+                <div class="card-actions justify-end mt-8 pt-6 border-t border-base-300">
+                    <button type="reset" class="btn btn-ghost hover:bg-base-200">Reset</button>
+                    <button type="submit" class="btn btn-error text-white px-8">
+                        Predict Risk
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </button>
+                </div>
+            </form>
 
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Max Heart Rate</label>
-            <input type="number" step="any" name="thalach" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
-
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Ex. Angina (1=Y, 0=N)</label>
-            <input type="number" step="any" name="exang" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
-
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Oldpeak</label>
-            <input type="number" step="any" name="oldpeak" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
-
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Slope</label>
-            <input type="number" step="any" name="slope" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
-
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Major Vessels</label>
-            <input type="number" step="any" name="ca" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
-
-            <div><label class="block text-gray-700 text-sm font-bold mb-2">Thal</label>
-            <input type="number" step="any" name="thal" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" required></div>
+            {% if result %}
+            <div class="mt-8 animate-fade-in-up">
+                <div class="alert shadow-lg {% if 'Disease' in result or 'High' in result %}alert-error{% else %}alert-success{% endif %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                    <div>
+                        <h3 class="font-bold">Prediction Complete</h3>
+                        <div class="text-sm">{{ result }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-
-        <button type="submit" class="mt-8 w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded transition duration-200">
-            Predict Heart Disease
-        </button>
-    </form>
-
-    {% if result %}
-    <div class="mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-        <h4 class="font-bold text-lg">Result: {{ result }}</h4>
     </div>
-    {% endif %}
 </div>
 {% endblock %}

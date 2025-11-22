@@ -1,52 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Assistant</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 font-sans leading-normal tracking-normal">
 
-    <header class="bg-blue-600 text-white shadow-md">
+    <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+</head>
+<body class="bg-base-200 font-sans leading-normal tracking-normal min-h-screen flex flex-col">
+
+    <header class="bg-primary text-primary-content shadow-md sticky top-0 z-50">
         <div class="container mx-auto flex items-center justify-between p-4">
             <div class="flex items-center">
-                <button id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true" class="mr-3 inline-flex items-center justify-center p-2 rounded bg-white/10 hover:bg-white/20 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M3 5h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2z" clip-rule="evenodd" />
+                <button id="sidebarToggle" aria-label="Toggle sidebar" class="btn btn-square btn-ghost mr-3 md:hidden text-current">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <a href="{{ url_for('home') }}" class="flex items-center text-white text-xl font-bold no-underline hover:text-gray-200">
-                    🧑‍⚕️ Health Assistant
+                
+                <a href="{{ url_for('home') }}" class="flex items-center gap-2 text-xl font-bold no-underline hover:opacity-80 transition-opacity">
+                    <span>🧑‍⚕️</span>
+                    <span>Health Assistant</span>
                 </a>
             </div>
 
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center gap-3">
+                
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-sm m-1">
+                        Theme
+                        <svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 text-base-content rounded-box w-52">
+                        <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Light" value="light"/></li>
+                        <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Dark" value="dark"/></li>
+                        <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Cupcake" value="cupcake"/></li>
+                        <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Bumblebee" value="bumblebee"/></li>
+                        <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Emerald" value="emerald"/></li>
+                        <li><input type="radio" name="theme-dropdown" class="theme-controller btn btn-sm btn-block btn-ghost justify-start" aria-label="Synthwave" value="synthwave"/></li>
+                    </ul>
+                </div>
+
                 {% if session.get('user') %}
-                    <span class="text-sm text-white/90">{{ session.get('user') }}</span>
-                    <a href="{{ url_for('login_controller.logout') }}" class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-2 px-3 rounded">Logout</a>
+                    <div class="hidden md:block text-sm font-semibold opacity-90">{{ session.get('user') }}</div>
+                    <a href="{{ url_for('login_controller.logout') }}" class="btn btn-error btn-sm text-white">Logout</a>
                 {% else %}
-                    <a href="{{ url_for('login_controller.login') }}" class="bg-white text-blue-600 hover:bg-gray-100 text-sm font-semibold py-2 px-3 rounded">Login</a>
+                    <a href="{{ url_for('login_controller.login') }}" class="btn btn-secondary btn-sm">Login</a>
                 {% endif %}
             </div>
         </div>
     </header>
 
-    <div class="flex min-h-[calc(100vh-64px)]">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="w-64 bg-white border-r hidden md:block">
+    <div class="flex flex-1 relative">
+        <aside id="sidebar" class="w-64 bg-base-100 border-r border-base-300 hidden md:block transition-all duration-300 ease-in-out h-[calc(100vh-64px)] sticky top-[64px] overflow-y-auto">
             <div class="p-6">
-                <nav class="space-y-2">
-                    <a href="{{ url_for('prediction_controller.diabetes') }}" class="block text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded px-3 py-2 font-semibold">Diabetes</a>
-                    <a href="{{ url_for('prediction_controller.heart') }}" class="block text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded px-3 py-2 font-semibold">Heart Disease</a>
-                    <a href="{{ url_for('prediction_controller.parkinsons') }}" class="block text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded px-3 py-2 font-semibold">Parkinson's</a>
+                <nav class="menu w-full p-0 gap-2">
+                    <li><a href="{{ url_for('prediction_controller.diabetes') }}" class="font-semibold hover:text-primary hover:bg-base-200">Diabetes Prediction</a></li>
+                    <li><a href="{{ url_for('prediction_controller.heart') }}" class="font-semibold hover:text-primary hover:bg-base-200">Heart Disease</a></li>
+                    <li><a href="{{ url_for('prediction_controller.parkinsons') }}" class="font-semibold hover:text-primary hover:bg-base-200">Parkinson's</a></li>
                 </nav>
             </div>
         </aside>
 
-        <!-- Main content -->
-        <main class="flex-1 bg-gray-50">
-            <div class="container mx-auto mt-10 px-4 mb-10">
+        <main class="flex-1 bg-base-200 p-4 md:p-10">
+            <div class="container mx-auto max-w-6xl">
                 {% block content %}{% endblock %}
             </div>
         </main>
