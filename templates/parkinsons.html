@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Parkinson's Disease Prediction</h2>
+<form action="/parkinsons" method="POST">
+    <div class="row g-3">
+        <div class="col-md-3"><label>MDVP:Fo(Hz)</label><input type="number" step="any" name="fo" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:Fhi(Hz)</label><input type="number" step="any" name="fhi" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:Flo(Hz)</label><input type="number" step="any" name="flo" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:Jitter(%)</label><input type="number" step="any" name="jitter_percent" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:Jitter(Abs)</label><input type="number" step="any" name="jitter_abs" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:RAP</label><input type="number" step="any" name="rap" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:PPQ</label><input type="number" step="any" name="ppq" class="form-control" required></div>
+        <div class="col-md-3"><label>Jitter:DDP</label><input type="number" step="any" name="ddp" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:Shimmer</label><input type="number" step="any" name="shimmer" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:Shimmer(dB)</label><input type="number" step="any" name="shimmer_db" class="form-control" required></div>
+        <div class="col-md-3"><label>Shimmer:APQ3</label><input type="number" step="any" name="apq3" class="form-control" required></div>
+        <div class="col-md-3"><label>Shimmer:APQ5</label><input type="number" step="any" name="apq5" class="form-control" required></div>
+        <div class="col-md-3"><label>MDVP:APQ</label><input type="number" step="any" name="apq" class="form-control" required></div>
+        <div class="col-md-3"><label>Shimmer:DDA</label><input type="number" step="any" name="dda" class="form-control" required></div>
+        <div class="col-md-3"><label>NHR</label><input type="number" step="any" name="nhr" class="form-control" required></div>
+        <div class="col-md-3"><label>HNR</label><input type="number" step="any" name="hnr" class="form-control" required></div>
+        <div class="col-md-3"><label>RPDE</label><input type="number" step="any" name="rpde" class="form-control" required></div>
+        <div class="col-md-3"><label>DFA</label><input type="number" step="any" name="dfa" class="form-control" required></div>
+        <div class="col-md-3"><label>spread1</label><input type="number" step="any" name="spread1" class="form-control" required></div>
+        <div class="col-md-3"><label>spread2</label><input type="number" step="any" name="spread2" class="form-control" required></div>
+        <div class="col-md-3"><label>D2</label><input type="number" step="any" name="d2" class="form-control" required></div>
+        <div class="col-md-3"><label>PPE</label><input type="number" step="any" name="ppe" class="form-control" required></div>
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Predict</button>
+</form>
+
+{% if result %}
+<div class="result-box">
+    <h4>{{ result }}</h4>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Heart Disease Prediction</h2>
+<form action="/heart" method="POST">
+    <div class="row g-3">
+        <div class="col-md-4"><label>Age</label><input type="number" step="any" name="age" class="form-control" required></div>
+        <div class="col-md-4"><label>Sex (1=Male, 0=Female)</label><input type="number" step="any" name="sex" class="form-control" required></div>
+        <div class="col-md-4"><label>Chest Pain Type</label><input type="number" step="any" name="cp" class="form-control" required></div>
+        <div class="col-md-4"><label>Resting BP</label><input type="number" step="any" name="trestbps" class="form-control" required></div>
+        <div class="col-md-4"><label>Cholesterol</label><input type="number" step="any" name="chol" class="form-control" required></div>
+        <div class="col-md-4"><label>Fasting BS > 120 (1=True, 0=False)</label><input type="number" step="any" name="fbs" class="form-control" required></div>
+        <div class="col-md-4"><label>Resting ECG</label><input type="number" step="any" name="restecg" class="form-control" required></div>
+        <div class="col-md-4"><label>Max Heart Rate</label><input type="number" step="any" name="thalach" class="form-control" required></div>
+        <div class="col-md-4"><label>Exercise Angina (1=Yes, 0=No)</label><input type="number" step="any" name="exang" class="form-control" required></div>
+        <div class="col-md-4"><label>Oldpeak</label><input type="number" step="any" name="oldpeak" class="form-control" required></div>
+        <div class="col-md-4"><label>Slope</label><input type="number" step="any" name="slope" class="form-control" required></div>
+        <div class="col-md-4"><label>Major Vessels (0-3)</label><input type="number" step="any" name="ca" class="form-control" required></div>
+        <div class="col-md-4"><label>Thal (0-2)</label><input type="number" step="any" name="thal" class="form-control" required></div>
+    </div>
+    <button type="submit" class="btn btn-danger mt-3">Predict</button>
+</form>
+
+{% if result %}
+<div class="result-box">
+    <h4>{{ result }}</h4>
+</div>
+{% endif %}
+{% endblock %}
