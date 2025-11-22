@@ -17,7 +17,7 @@ import re
 
 login_controller = Blueprint('login_controller', __name__)
 
-@login_controller.route('/login', methods=['GET', 'POST'])
+@login_controller.route('/', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
