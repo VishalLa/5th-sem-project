@@ -1,23 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Diabetes Prediction</h2>
-<form action="/diabetes" method="POST">
-    <div class="row g-3">
-        <div class="col-md-4"><label>Pregnancies</label><input type="number" step="any" name="pregnancies" class="form-control" required></div>
-        <div class="col-md-4"><label>Glucose</label><input type="number" step="any" name="glucose" class="form-control" required></div>
-        <div class="col-md-4"><label>Blood Pressure</label><input type="number" step="any" name="bloodpressure" class="form-control" required></div>
-        <div class="col-md-4"><label>Skin Thickness</label><input type="number" step="any" name="skinthickness" class="form-control" required></div>
-        <div class="col-md-4"><label>Insulin</label><input type="number" step="any" name="insulin" class="form-control" required></div>
-        <div class="col-md-4"><label>BMI</label><input type="number" step="any" name="bmi" class="form-control" required></div>
-        <div class="col-md-4"><label>Diabetes Pedigree Function</label><input type="number" step="any" name="dpf" class="form-control" required></div>
-        <div class="col-md-4"><label>Age</label><input type="number" step="any" name="age" class="form-control" required></div>
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Predict</button>
-</form>
 
-{% if result %}
-<div class="result-box">
-    <h4>{{ result }}</h4>
+<div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Diabetes Prediction</h2>
+    
+    <form action="/diabetes" method="POST">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Pregnancies</label>
+                <input type="number" step="any" name="pregnancies" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Glucose</label>
+                <input type="number" step="any" name="glucose" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Blood Pressure</label>
+                <input type="number" step="any" name="bloodpressure" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Skin Thickness</label>
+                <input type="number" step="any" name="skinthickness" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Insulin</label>
+                <input type="number" step="any" name="insulin" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">BMI</label>
+                <input type="number" step="any" name="bmi" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Diabetes Pedigree</label>
+                <input type="number" step="any" name="dpf" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">Age</label>
+                <input type="number" step="any" name="age" class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+        </div>
+
+        <button type="submit" class="mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition duration-200">
+            Predict Diabetes Result
+        </button>
+    </form>
+
+    {% if result %}
+    <div class="mt-6 p-4 bg-blue-100 border border-blue-400 text-blue-700 rounded">
+        <h4 class="font-bold text-lg">Result: {{ result }}</h4>
+    </div>
+    {% endif %}
 </div>
-{% endif %}
 {% endblock %}

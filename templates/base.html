@@ -4,34 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Assistant</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #f8f9fa; }
-        .result-box { margin-top: 20px; padding: 15px; background-color: #d1e7dd; border-radius: 5px; border: 1px solid #badbcc; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">🧑‍⚕️ Health Assistant</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="/diabetes">Diabetes</a></li>
-        <li class="nav-item"><a class="nav-link" href="/heart">Heart Disease</a></li>
-        <li class="nav-item"><a class="nav-link" href="/parkinsons">Parkinson's</a></li>
-      </ul>
+    <nav class="bg-blue-600 p-4 shadow-md">
+        <div class="container mx-auto flex flex-wrap items-center justify-between">
+            <a href="/" class="flex items-center text-white text-xl font-bold no-underline hover:text-gray-200">
+                🧑‍⚕️ Health Assistant
+            </a>
+            
+            <div class="block lg:hidden">
+                <button class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                </button>
+            </div>
+
+            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
+                <ul class="list-reset lg:flex justify-end flex-1 items-center">
+                    <li class="mr-3">
+                        <a class="inline-block text-blue-100 hover:text-white py-2 px-4 font-semibold" href="/diabetes">Diabetes</a>
+                    </li>
+                    <li class="mr-3">
+                        <a class="inline-block text-blue-100 hover:text-white py-2 px-4 font-semibold" href="/heart">Heart Disease</a>
+                    </li>
+                    <li class="mr-3">
+                        <a class="inline-block text-blue-100 hover:text-white py-2 px-4 font-semibold" href="/parkinsons">Parkinson's</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto mt-10 px-4 mb-10">
+        {% block content %}{% endblock %}
     </div>
-  </div>
-</nav>
 
-<div class="container mt-4">
-    {% block content %}{% endblock %}
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
