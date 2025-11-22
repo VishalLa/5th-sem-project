@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Diabetes Prediction</h2>
+<form action="/diabetes" method="POST">
+    <div class="row g-3">
+        <div class="col-md-4"><label>Pregnancies</label><input type="number" step="any" name="pregnancies" class="form-control" required></div>
+        <div class="col-md-4"><label>Glucose</label><input type="number" step="any" name="glucose" class="form-control" required></div>
+        <div class="col-md-4"><label>Blood Pressure</label><input type="number" step="any" name="bloodpressure" class="form-control" required></div>
+        <div class="col-md-4"><label>Skin Thickness</label><input type="number" step="any" name="skinthickness" class="form-control" required></div>
+        <div class="col-md-4"><label>Insulin</label><input type="number" step="any" name="insulin" class="form-control" required></div>
+        <div class="col-md-4"><label>BMI</label><input type="number" step="any" name="bmi" class="form-control" required></div>
+        <div class="col-md-4"><label>Diabetes Pedigree Function</label><input type="number" step="any" name="dpf" class="form-control" required></div>
+        <div class="col-md-4"><label>Age</label><input type="number" step="any" name="age" class="form-control" required></div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Predict</button>
+</form>
+
+{% if result %}
+<div class="result-box">
+    <h4>{{ result }}</h4>
+</div>
+{% endif %}
+{% endblock %}
