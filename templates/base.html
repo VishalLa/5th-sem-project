@@ -8,37 +8,51 @@
 </head>
 <body class="bg-gray-50 font-sans leading-normal tracking-normal">
 
-    <nav class="bg-blue-600 p-4 shadow-md">
-        <div class="container mx-auto flex flex-wrap items-center justify-between">
-            <a href="/" class="flex items-center text-white text-xl font-bold no-underline hover:text-gray-200">
-                🧑‍⚕️ Health Assistant
-            </a>
-            
-            <div class="block lg:hidden">
-                <button class="flex items-center px-3 py-2 border rounded text-blue-200 border-blue-400 hover:text-white hover:border-white">
-                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+    <header class="bg-blue-600 text-white shadow-md">
+        <div class="container mx-auto flex items-center justify-between p-4">
+            <div class="flex items-center">
+                <button id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true" class="mr-3 inline-flex items-center justify-center p-2 rounded bg-white/10 hover:bg-white/20 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M3 5h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2z" clip-rule="evenodd" />
+                    </svg>
                 </button>
+                <a href="{{ url_for('home') }}" class="flex items-center text-white text-xl font-bold no-underline hover:text-gray-200">
+                    🧑‍⚕️ Health Assistant
+                </a>
             </div>
 
-            <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
-                <ul class="list-reset lg:flex justify-end flex-1 items-center">
-                    <li class="mr-3">
-                        <a class="inline-block text-blue-100 hover:text-white py-2 px-4 font-semibold" href="/diabetes">Diabetes</a>
-                    </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-blue-100 hover:text-white py-2 px-4 font-semibold" href="/heart">Heart Disease</a>
-                    </li>
-                    <li class="mr-3">
-                        <a class="inline-block text-blue-100 hover:text-white py-2 px-4 font-semibold" href="/parkinsons">Parkinson's</a>
-                    </li>
-                </ul>
+            <div class="flex items-center space-x-4">
+                {% if session.get('user') %}
+                    <span class="text-sm text-white/90">{{ session.get('user') }}</span>
+                    <a href="{{ url_for('login_controller.logout') }}" class="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold py-2 px-3 rounded">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login_controller.login') }}" class="bg-white text-blue-600 hover:bg-gray-100 text-sm font-semibold py-2 px-3 rounded">Login</a>
+                {% endif %}
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="container mx-auto mt-10 px-4 mb-10">
-        {% block content %}{% endblock %}
+    <div class="flex min-h-[calc(100vh-64px)]">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 bg-white border-r hidden md:block">
+            <div class="p-6">
+                <nav class="space-y-2">
+                    <a href="{{ url_for('prediction_controller.diabetes') }}" class="block text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded px-3 py-2 font-semibold">Diabetes</a>
+                    <a href="{{ url_for('prediction_controller.heart') }}" class="block text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded px-3 py-2 font-semibold">Heart Disease</a>
+                    <a href="{{ url_for('prediction_controller.parkinsons') }}" class="block text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded px-3 py-2 font-semibold">Parkinson's</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main content -->
+        <main class="flex-1 bg-gray-50">
+            <div class="container mx-auto mt-10 px-4 mb-10">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
     </div>
+
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
 
 </body>
 </html>

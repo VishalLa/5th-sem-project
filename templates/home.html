@@ -2,6 +2,14 @@
 {% block content %}
 <div class="flex flex-col items-center justify-center">
     <div class="bg-white p-10 rounded-lg shadow-xl text-center max-w-2xl">
+        <div class="flex justify-end mb-4">
+            {% if session.get('user') %}
+                <span class="text-sm text-gray-600 mr-4">Signed in: {{ session.get('user') }}</span>
+                <a href="{{ url_for('login_controller.logout') }}" class="text-sm text-red-600 hover:text-red-800 font-semibold">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login_controller.login') }}" class="text-sm text-blue-600 hover:text-blue-800 font-semibold">Login</a>
+            {% endif %}
+        </div>
         <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Health Assistant</h1>
         <p class="text-gray-600 mb-8 text-lg">
             Use our advanced machine learning models to predict potential health risks. 
@@ -9,15 +17,15 @@
         </p>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a href="/diabetes" class="block p-6 bg-blue-50 rounded-lg hover:bg-blue-100 transition border border-blue-200">
+            <a href="{{ url_for('prediction_controller.diabetes') }}" class="block p-6 bg-blue-50 rounded-lg hover:bg-blue-100 transition border border-blue-200">
                 <h3 class="font-bold text-blue-700 mb-2">Diabetes</h3>
                 <span class="text-sm text-blue-600">Predict risk based on glucose, BMI, etc.</span>
             </a>
-            <a href="/heart" class="block p-6 bg-red-50 rounded-lg hover:bg-red-100 transition border border-red-200">
+            <a href="{{ url_for('prediction_controller.heart') }}" class="block p-6 bg-red-50 rounded-lg hover:bg-red-100 transition border border-red-200">
                 <h3 class="font-bold text-red-700 mb-2">Heart Disease</h3>
                 <span class="text-sm text-red-600">Analyze cardiovascular health metrics.</span>
             </a>
-            <a href="/parkinsons" class="block p-6 bg-green-50 rounded-lg hover:bg-green-100 transition border border-green-200">
+            <a href="{{ url_for('prediction_controller.parkinsons') }}" class="block p-6 bg-green-50 rounded-lg hover:bg-green-100 transition border border-green-200">
                 <h3 class="font-bold text-green-700 mb-2">Parkinson's</h3>
                 <span class="text-sm text-green-600">Voice frequency analysis.</span>
             </a>

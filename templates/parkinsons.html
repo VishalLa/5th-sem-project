@@ -4,7 +4,7 @@
 <div class="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-lg">
     <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Parkinson's Disease Prediction</h2>
     
-    <form action="/parkinsons" method="POST">
+    <form action="{{ url_for('prediction_controller.parkinsons') }}" method="POST">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             
             <div><label class="text-xs font-bold text-gray-600">MDVP:Fo(Hz)</label>
