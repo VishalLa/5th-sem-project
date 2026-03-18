@@ -1,3 +1,5 @@
+/.venv
+.venv/
 myenv/
 catboost_info/
 node_modeules/
